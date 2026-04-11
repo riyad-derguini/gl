@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>BlockJournal - Journalisme citoyen sécurisé par Blockchain</title>
+  <!-- Google Fonts & Font Awesome for modern icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 30%, #0a0f1e, #03060c);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      color: #eef2ff;
+    }
+
+    /* container principal */
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* header branding */
+    .brand {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .brand h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #A5F0FF, #6C8CFF);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .brand p {
+      color: #8f9bb5;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+    .badge-chain {
+      display: inline-block;
+      background: rgba(108, 140, 255, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(108, 140, 255, 0.4);
+      margin-top: 0.75rem;
+    }
+
+    /* Role Tabs - style moderne */
+    .role-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .role-btn {
+      background: rgba(20, 28, 40, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.85rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #cbd5ff;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .role-btn i {
+      font-size: 1.2rem;
+    }
+    .role-btn.active {
+      background: linear-gradient(105deg, #2a3a6e, #1b2b4e);
+      border-color: #6C8CFF;
+      color: white;
+      box-shadow: 0 8px 20px rgba(108, 140, 255, 0.3);
+    }
+    .role-btn:hover:not(.active) {
+      background: rgba(45, 55, 85, 0.8);
+      border-color: #6C8CFF80;
+      transform: translateY(-2px);
+    }
+
+    /* Cards et conteneurs */
+    .dashboard {
+      background: rgba(12, 18, 28, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(108, 140, 255, 0.2);
+      padding: 2rem 1.8rem;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+      transition: all 0.2s;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-left: 4px solid #6C8CFF;
+      padding-left: 1rem;
+    }
+
+    /* formulaire journaliste */
+    .form-card {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(108, 140, 255, 0.25);
+    }
+    .input-group {
+      margin-bottom: 1.25rem;
+    }
+    .input-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #b9c7ff;
+    }
+    input, textarea {
+      width: 100%;
+      background: #0f1420;
+      border: 1px solid #2a3450;
+      border-radius: 1rem;
+      padding: 0.9rem 1rem;
+      color: white;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #6C8CFF;
+      box-shadow: 0 0 0 3px rgba(108,140,255,0.2);
+    }
+    button {
+      background: linear-gradient(95deg, #2b3b6e, #1f2c4f);
+      border: none;
+      padding: 0.85rem 1.8rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+    }
+    .btn-approve {
+      background: linear-gradient(95deg, #1f6e43, #0f5a38);
+    }
+    .btn-reject {
+      background: linear-gradient(95deg, #9e3c2c, #7a2e21);
+    }
+    .btn-verify {
+      background: #2d374e;
+      border: 1px solid #4b5e8c;
+    }
+
+    /* liste des articles (pending & published) */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .article-card {
+      background: #0c1120dd;
+      backdrop-filter: blur(4px);
+      border-radius: 1.5rem;
+      padding: 1.3rem;
+      border: 1px solid rgba(108,140,255,0.2);
+      transition: all 0.2s;
+    }
+    .article-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #d6e3ff;
+    }
+    .article-meta {
+      font-size: 0.7rem;
+      color: #8f9bb5;
+      margin-bottom: 0.75rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .article-content {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: #cddcff;
+      margin: 0.75rem 0;
+      white-space: pre-wrap;
+    }
+    .hash-badge {
+      background: #03060e;
+      font-family: monospace;
+      font-size: 0.7rem;
+      padding: 0.4rem 0.7rem;
+      border-radius: 12px;
+      word-break: break-all;
+      color: #8fbbff;
+      margin: 10px 0;
+      border: 1px solid #2c3f66;
+    }
+    .card-actions {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .empty-message {
+      text-align: center;
+      padding: 3rem;
+      color: #7e8bb0;
+      font-style: italic;
+    }
+    .toast-msg {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #1f2b3f;
+      backdrop-filter: blur(12px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      border-left: 4px solid #6C8CFF;
+      font-weight: 500;
+      z-index: 999;
+      animation: fadeInUp 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #4e6188;
+    }
+    @media (max-width: 700px) {
+      body { padding: 1rem; }
+      .dashboard { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <div class="brand">
+    <h1><i class="fas fa-link"></i> BlockJournal</h1>
+    <p>Journalisme citoyen · Intégrité immuable par Smart Contract simulé</p>
+    <div class="badge-chain"><i class="fas fa-cube"></i> Ancrage blockchain | Hash SHA-256 | État inaltérable</div>
+  </div>
+
+  <!-- Sélecteur d'espaces (3 rôles) -->
+  <div class="role-tabs">
+    <div class="role-btn" data-role="journalist" id="tabJournalist"><i class="fas fa-pen-fancy"></i> Espace Journaliste</div>
+    <div class="role-btn" data-role="moderator" id="tabModerator"><i class="fas fa-gavel"></i> Espace Modérateur</div>
+    <div class="role-btn" data-role="reader" id="tabReader"><i class="fas fa-newspaper"></i> Espace Lecteur</div>
+  </div>
+
+  <div class="dashboard" id="mainDashboard">
+    <!-- contenu dynamique injecté ici -->
+  </div>
+  <footer>
+    <i class="fas fa-lock"></i> Simulation d'ancrage Smart Contract — chaque approbation génère un hash cryptographique (SHA-256) garantissant l'intégrité du contenu.
+  </footer>
+</div>
+
+<script>
+  // ---------- DATA MODEL (États & transitions UML) ----------
+  // pendingSubmissions : articles en attente de modération (état "en attente")
+  // publishedArticles : articles publiés (état "publié" avec hash et preuve d'intégrité)
+  let pendingSubmissions = [];
+  let publishedArticles = [];
+
+  // IDs uniques
+  let nextPendingId = 1;
+  let nextPublishedId = 1;
+
+  // Helper pour afficher des toasts
+  function showToast(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.className = 'toast-msg';
+    toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${message}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  // ---------- FONCTION CRYPTOGRAPHIQUE (simulation ancrage Smart Contract) ----------
+  // Génère un hash SHA-256 à partir des métadonnées + contenu + timestamp d'approbation
+  async function generateIntegrityHash(article) {
+    // article contient : title, content, author, submissionTimestamp, approvalTimestamp
+    const dataString = `${article.title}|${article.content}|${article.author}|${article.submissionTimestamp}|${article.approvalTimestamp}|BlockJournal_ANCHOR`;
+    const encoder = new TextEncoder();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(dataString));
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return `0x${hexHash}`;
+  }
+
+  // Transition: APPROUVER une soumission en attente -> génération hash + publication (état inaltérable)
+  async function approveSubmission(pendingId) {
+    const pendingIndex = pendingSubmissions.findIndex(p => p.id === pendingId);
+    if (pendingIndex === -1) {
+      showToast("Soumission introuvable", true);
+      return false;
+    }
+    const pending = pendingSubmissions[pendingIndex];
+    // Créer l'article publié avec timestamp d'approbation
+    const approvalTimestamp = new Date().toISOString();
+    const newPublished = {
+      id: nextPublishedId++,
+      title: pending.title,
+      content: pending.content,
+      author: pending.author,
+      submissionTimestamp: pending.submissionTimestamp,
+      approvalTimestamp: approvalTimestamp,
+      hash: null,   // sera rempli après génération
+      isImmutable: true
+    };
+    // Génération du hash cryptographique (preuve d'ancrage)
+    const generatedHash = await generateIntegrityHash(newPublished);
+    newPublished.hash = generatedHash;
+    
+    // Ajouter aux articles publiés
+    publishedArticles.unshift(newPublished);
+    // Retirer de la file d'attente
+    pendingSubmissions.splice(pendingIndex, 1);
+    showToast(`Article approuvé ! Hash généré : ${generatedHash.slice(0, 18)}... - Intégrité scellée sur la blockchain simulée`);
+    // Re-rendu selon le rôle actif
+    renderCurrentRole();
+    return true;
+  }
+
+  // Transition: REJETER une soumission (suppression de la file de modération)
+  function rejectSubmission(pendingId) {
+    const pendingIndex = pendingSubmissions.findIndex(p => p.id === pendingId);
+    if (pendingIndex === -1) {
+      showToast("Soumission introuvable", true);
+      return;
+    }
+    pendingSubmissions.splice(pendingIndex, 1);
+    showToast("Article rejeté et retiré de la file de modération.");
+    renderCurrentRole();
+  }
+
+  // Soumettre un nouvel article (journaliste) -> ajoute à pendingSubmissions (état "en attente")
+  function submitArticle(title, content, author) {
+    if (!title.trim() || !content.trim()) {
+      showToast("Le titre et le contenu sont obligatoires", true);
+      return false;
+    }
+    const newPending = {
+      id: nextPendingId++,
+      title: title.trim(),
+      content: content.trim(),
+      author: author.trim() || "Citoyen·ne journaliste",
+      submissionTimestamp: new Date().toISOString(),
+      status: "pending"
+    };
+    pendingSubmissions.unshift(newPending);
+    showToast("📝 Article soumis avec succès ! En attente de validation par le modérateur.");
+    renderCurrentRole();
+    return true;
+  }
+
+  // Vérification d'intégrité pour un article publié (recalcul du hash et comparaison)
+  async function verifyIntegrity(articleId) {
+    const article = publishedArticles.find(a => a.id === articleId);
+    if (!article) {
+      showToast("Article introuvable", true);
+      return;
+    }
+    // Recalcul du hash avec les mêmes paramètres stockés
+    const verificationData = {
+      title: article.title,
+      content: article.content,
+      author: article.author,
+      submissionTimestamp: article.submissionTimestamp,
+      approvalTimestamp: article.approvalTimestamp
+    };
+    const recomputedHash = await generateIntegrityHash(verificationData);
+    if (recomputedHash === article.hash) {
+      showToast(`VÉRIFICATION RÉUSSIE : L'article est authentique et n'a pas été altéré. Hash conforme : ${article.hash.slice(0, 20)}...`);
+    } else {
+      showToast(`ALERTE : L'intégrité est compromise ! Le contenu a été modifié hors blockchain.`, true);
+    }
+  }
+
+  // ---------- GESTION DES VUES PAR RÔLE (3 espaces distincts) ----------
+  let currentRole = "journalist"; // journalist, moderator, reader
+
+  // Rendu principal en fonction du rôle actif
+  function renderCurrentRole() {
+    const dashboard = document.getElementById("mainDashboard");
+    if (!dashboard) return;
+    if (currentRole === "journalist") {
+      dashboard.innerHTML = renderJournalistSpace();
+    } else if (currentRole === "moderator") {
+      dashboard.innerHTML = renderModeratorSpace();
+    } else if (currentRole === "reader") {
+      dashboard.innerHTML = renderReaderSpace();
+    }
+    // attacher les événements après injection
+    attachRoleSpecificEvents();
+  }
+
+  // ESPACE JOURNALISTE : formulaire de soumission
+  function renderJournalistSpace() {
+    return `
+      <div class="section-title"><i class="fas fa-feather-alt"></i> Publier un reportage citoyen</div>
+      <div class="form-card">
+        <div class="input-group">
+          <label><i class="fas fa-heading"></i> Titre de l'article *</label>
+          <input type="text" id="articleTitle" placeholder="Ex: Découverte environnementale dans le quartier ..." />
+        </div>
+        <div class="input-group">
+          <label><i class="fas fa-user"></i> Auteur / Pseudo</label>
+          <input type="text" id="articleAuthor" placeholder="Anonyme ou votre nom" />
+        </div>
+        <div class="input-group">
+          <label><i class="fas fa-file-alt"></i> Contenu * (preuves, témoignages)</label>
+          <textarea rows="5" id="articleContent" placeholder="Rédigez votre enquête citoyenne... (chaque mot sera scellé via hash à la validation)"></textarea>
+        </div>
+        <button id="submitArticleBtn"><i class="fas fa-paper-plane"></i> Soumettre à la blockchain (modération)</button>
+        <p style="font-size:0.75rem; margin-top:1rem; color:#7c8db0;"><i class="fas fa-info-circle"></i> Votre article passe en file d'attente. Un modérateur l'approuvera et générera un hash d'ancrage.</p>
+      </div>
+     
+    `;
+  }
+
+  // ESPACE MODÉRATEUR : liste des soumissions en attente + actions approuver/rejeter
+  function renderModeratorSpace() {
+    if (pendingSubmissions.length === 0) {
+      return `
+        <div class="section-title"><i class="fas fa-clock"></i> File de modération</div>
+        <div class="empty-message">
+          <i class="fas fa-inbox fa-2x"></i>
+          <p>Aucune soumission en attente. Les journalistes n'ont pas encore posté de contenu.</p>
+        </div>
+      `;
+    }
+    let pendingHtml = `<div class="section-title"><i class="fas fa-tasks"></i> Articles en attente (${pendingSubmissions.length})</div>
+    <div class="articles-grid">`;
+    pendingSubmissions.forEach(pending => {
+      pendingHtml += `
+        <div class="article-card" data-pending-id="${pending.id}">
+          <div class="article-title">${escapeHtml(pending.title)}</div>
+          <div class="article-meta"><span><i class="fas fa-user"></i> ${escapeHtml(pending.author)}</span> <span><i class="fas fa-calendar-alt"></i> ${new Date(pending.submissionTimestamp).toLocaleString()}</span></div>
+          <div class="article-content">${escapeHtml(pending.content)}</div>
+          <div class="card-actions">
+            <button class="approve-btn" data-id="${pending.id}"><i class="fas fa-check-circle"></i> Approuver & générer hash</button>
+            <button class="reject-btn" data-id="${pending.id}"><i class="fas fa-times-circle"></i> Rejeter</button>
+          </div>
+          <div style="font-size:0.7rem; margin-top:8px; color:#b9c2e0;"><i class="fas fa-link"></i> Validation → ancrage Smart Contract simulé</div>
+        </div>
+      `;
+    });
+    pendingHtml += `</div>`;
+    return pendingHtml;
+  }
+
+  // ESPACE LECTEUR : consulter les articles publiés (état final inaltérable) + vérifier hash
+  function renderReaderSpace() {
+    if (publishedArticles.length === 0) {
+      return `
+        <div class="section-title"><i class="fas fa-newspaper"></i> Articles publiés (immuables)</div>
+        <div class="empty-message">
+          <i class="fas fa-database fa-2x"></i>
+          <p>Aucun article n'a encore été publié. Les modérateurs doivent valider des contenus.</p>
+        </div>
+      `;
+    }
+    let readerHtml = `<div class="section-title"><i class="fas fa-shield-alt"></i> Archives inaltérables (Preuve blockchain)</div>
+    <div class="articles-grid">`;
+    publishedArticles.forEach(article => {
+      readerHtml += `
+        <div class="article-card" data-pub-id="${article.id}">
+          <div class="article-title">${escapeHtml(article.title)}</div>
+          <div class="article-meta">
+            <span><i class="fas fa-user-pen"></i> ${escapeHtml(article.author)}</span>
+            <span><i class="fas fa-clock"></i> Soumis: ${new Date(article.submissionTimestamp).toLocaleDateString()}</span>
+            <span><i class="fas fa-check-double"></i> Approuvé: ${new Date(article.approvalTimestamp).toLocaleString()}</span>
+          </div>
+          <div class="article-content">${escapeHtml(article.content)}</div>
+          <div class="hash-badge"><i class="fas fa-fingerprint"></i> Hash d'ancrage (Smart Contract) : <br>${article.hash}</div>
+          <div class="card-actions">
+            <button class="verify-btn" data-id="${article.id}"><i class="fas fa-vote-yea"></i> Vérifier intégrité (hash recalculé)</button>
+          </div>
+          <div style="font-size:0.7rem; color:#b1c2f0; margin-top:6px;"><i class="fas fa-cube"></i> Contenu scellé - toute altération serait détectée</div>
+        </div>
+      `;
+    });
+    readerHtml += `</div>`;
+    return readerHtml;
+  }
+
+  // Petit helper pour échapper les caractères HTML (sécurité)
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+      return c;
+    });
+  }
+
+  // Attacher événements dynamiques après rendu (selon rôle)
+  function attachRoleSpecificEvents() {
+    if (currentRole === "journalist") {
+      const submitBtn = document.getElementById("submitArticleBtn");
+      if (submitBtn) {
+        submitBtn.addEventListener("click", () => {
+          const title = document.getElementById("articleTitle")?.value || "";
+          const content = document.getElementById("articleContent")?.value || "";
+          const author = document.getElementById("articleAuthor")?.value || "Citoyen journaliste";
+          submitArticle(title, content, author);
+          // Réinitialiser partiellement le formulaire
+          const titleInput = document.getElementById("articleTitle");
+          const contentInput = document.getElementById("articleContent");
+          if (titleInput) titleInput.value = "";
+          if (contentInput) contentInput.value = "";
+        });
+      }
+    }
+    else if (currentRole === "moderator") {
+      // Boutons approuver
+      document.querySelectorAll(".approve-btn").forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const id = parseInt(btn.getAttribute("data-id"));
+          if (!isNaN(id)) {
+            // Désactiver brièvement pour éviter double appel
+            btn.disabled = true;
+            await approveSubmission(id);
+            btn.disabled = false;
+          }
+        });
+      });
+      // Boutons rejeter
+      document.querySelectorAll(".reject-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const id = parseInt(btn.getAttribute("data-id"));
+          if (!isNaN(id)) {
+            rejectSubmission(id);
+          }
+        });
+      });
+    }
+    else if (currentRole === "reader") {
+      document.querySelectorAll(".verify-btn").forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const id = parseInt(btn.getAttribute("data-id"));
+          if (!isNaN(id)) {
+            await verifyIntegrity(id);
+          }
+        });
+      });
+    }
+  }
+
+  // Changement de rôle / espace utilisateur
+  function setRole(role) {
+    currentRole = role;
+    // Mise à jour active des onglets
+    document.querySelectorAll(".role-btn").forEach(btn => {
+      if (btn.getAttribute("data-role") === role) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+    renderCurrentRole();
+  }
+
+  // ---------- INITIALISATION : données de démonstration (respectant la logique séquentielle) ----------
+  // Pour illustrer le cycle complet, on insère 1 article en attente et 1 article déjà publié avec hash valide
+  // mais tout est fonctionnel, l'utilisateur peut les approuver/rejeter/lire
+  async function seedInitialData() {
+    // Article en attente exemple (soumis par un faux journaliste)
+    if (pendingSubmissions.length === 0) {
+      pendingSubmissions.push({
+        id: nextPendingId++,
+        title: "Pollution des eaux locales : analyse citoyenne",
+        content: "Des échantillons prélevés dans la rivière montrent des taux de microplastiques alarmants. Les habitants exigent une enquête publique.",
+        author: "Laura D., collectif écocitoyen",
+        submissionTimestamp: new Date(Date.now() - 2 * 3600000).toISOString(),
+        status: "pending"
+      });
+    }
+    // Ajouter un article déjà publié avec un vrai hash généré (simulation smart contract)
+    if (publishedArticles.length === 0) {
+      const demoPublished = {
+        id: nextPublishedId++,
+        title: "Le conseil municipal adopte le budget participatif",
+        content: "Suite à une pression citoyenne, la mairie a débloqué 200k€ pour des projets de quartier. Une avancée démocratique.",
+        author: "Marc V.",
+        submissionTimestamp: new Date(Date.now() - 48 * 3600000).toISOString(),
+        approvalTimestamp: new Date(Date.now() - 24 * 3600000).toISOString(),
+        hash: null,
+        isImmutable: true
+      };
+      const realHash = await generateIntegrityHash(demoPublished);
+      demoPublished.hash = realHash;
+      publishedArticles.push(demoPublished);
+    }
+    // Forcer le rendu initial
+    renderCurrentRole();
+  }
+
+  // Gestion onglets + initialisation
+  document.getElementById("tabJournalist")?.addEventListener("click", () => setRole("journalist"));
+  document.getElementById("tabModerator")?.addEventListener("click", () => setRole("moderator"));
+  document.getElementById("tabReader")?.addEventListener("click", () => setRole("reader"));
+  
+  // Lancement
+  (async () => {
+    await seedInitialData();
+    setRole("journalist");
+  })();
+</script>
+</body>
+</html>
