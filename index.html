@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
-  <title>BlockJournal · Journalisme citoyen sécurisé par Blockchain</title>
+  <title>L'Institution · Saint‑Denis – Journalisme citoyen ancré blockchain</title>
   <!-- Google Fonts & Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* ---------- RESET & BASE (NOIR & BLANC MINIMAL) ---------- */
     * {
       margin: 0;
       padding: 0;
@@ -16,407 +17,437 @@
     }
 
     body {
-      background: radial-gradient(circle at 10% 30%, #0a0f1e, #03060c);
+      background: #f8f9fa;   /* fond très clair, presque blanc */
+      color: #1e1e1e;
+      line-height: 1.5;
       min-height: 100vh;
-      padding: 1.5rem 1rem;
-      color: #eef2ff;
+      padding: 0 1.5rem 2rem;
     }
 
+    /* Conteneur principal */
     .app-container {
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    .brand {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .brand h1 {
-      font-size: clamp(1.8rem, 8vw, 2.5rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, #A5F0FF, #6C8CFF);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
-    }
-    .brand p {
-      color: #8f9bb5;
-      margin-top: 0.5rem;
-      font-weight: 500;
-      font-size: clamp(0.8rem, 3vw, 1rem);
-    }
-    .badge-chain {
-      display: inline-block;
-      background: rgba(108, 140, 255, 0.2);
-      backdrop-filter: blur(4px);
-      padding: 0.25rem 1rem;
-      border-radius: 40px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      border: 1px solid rgba(108, 140, 255, 0.4);
-      margin-top: 0.75rem;
+    /* ---------- COULEUR D'ACCENT ---------- */
+    :root {
+      --accent: #c0392b;      /* rouge brique sobre */
+      --accent-light: #e6b0aa;
+      --border-light: #dee2e6;
+      --card-bg: #ffffff;
+      --text-muted: #6c757d;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.03), 0 2px 4px rgba(0,0,0,0.02);
     }
 
-    /* Role Tabs */
-    .role-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.8rem;
-    }
-    .role-btn {
-      background: rgba(20, 28, 40, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 0.75rem 1.5rem;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      color: #cbd5ff;
+    /* ---------- BARRE DE NAVIGATION ---------- */
+    .navbar {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-    }
-    .role-btn i {
-      font-size: 1.1rem;
-    }
-    .role-btn.active {
-      background: linear-gradient(105deg, #2a3a6e, #1b2b4e);
-      border-color: #6C8CFF;
-      color: white;
-      box-shadow: 0 8px 20px rgba(108, 140, 255, 0.3);
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      background: #f8f9fa;
     }
 
-    .dashboard {
-      background: rgba(12, 18, 28, 0.65);
-      backdrop-filter: blur(12px);
-      border-radius: 1.8rem;
-      border: 1px solid rgba(108, 140, 255, 0.2);
-      padding: 1.8rem 1.5rem;
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+    .nav-brand a {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: #111;
+    }
+    .nav-brand span {
+      color: var(--accent);
+    }
+    .nav-brand p {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .nav-auth {
+      margin-left: auto;
+    }
+
+    /* boutons de navigation / authentification */
+    .btn-outline-accent {
+      background: transparent;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
       transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+    .btn-outline-accent:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      border: none;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-accent:hover {
+      background: #a93226;
+    }
+
+    .badge-chain {
+      display: inline-block;
+      background: #e9ecef;
+      color: #1e1e1e;
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      border: 1px solid #ced4da;
+    }
+
+    /* ---------- DASHBOARD / CARTES (MINIMAL) ---------- */
+    .dashboard {
+      background: var(--card-bg);
+      border-radius: 1.2rem;
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #eceff1;
     }
 
     .section-title {
-      font-size: clamp(1.3rem, 6vw, 1.6rem);
+      font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      border-left: 4px solid #6C8CFF;
-      padding-left: 1rem;
+      border-left: 5px solid var(--accent);
+      padding-left: 1.2rem;
+      color: #111;
     }
 
-    .form-card {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      border: 1px solid rgba(108, 140, 255, 0.25);
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1rem;
     }
+
+    .article-card {
+      background: #ffffff;
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      border: 1px solid #e9ecef;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.1s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-card:hover {
+      border-color: var(--accent-light);
+    }
+
+    .article-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #111;
+      word-break: break-word;
+    }
+
+    .article-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .article-content {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #2c3e50;
+      margin: 0.75rem 0 1.2rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .hash-badge {
+      background: #f1f3f5;
+      font-family: 'SF Mono', 'Menlo', monospace;
+      font-size: 0.7rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 12px;
+      word-break: break-all;
+      color: #1e1e1e;
+      border: 1px solid #dee2e6;
+      margin: 10px 0;
+    }
+
+    .verify-btn {
+      background: #ffffff;
+      border: 1.5px solid #adb5bd;
+      padding: 0.6rem 1rem;
+      border-radius: 40px;
+      color: #1e1e1e;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .verify-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ---------- FORMULAIRES ---------- */
+    .form-card {
+      background: #ffffff;
+      border-radius: 1.2rem;
+      padding: 1.8rem;
+      border: 1px solid #e9ecef;
+      margin-bottom: 2rem;
+    }
+
     .input-group {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
     .input-group label {
       display: block;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 0.5rem;
       font-size: 0.9rem;
-      color: #b9c7ff;
+      color: #2c3e50;
     }
+
     input, textarea, select {
       width: 100%;
-      background: #0f1420;
-      border: 1px solid #2a3450;
+      background: #ffffff;
+      border: 1.5px solid #dee2e6;
       border-radius: 1rem;
-      padding: 0.9rem 1rem;
-      color: white;
+      padding: 0.8rem 1rem;
+      color: #111;
       font-size: 0.95rem;
-      transition: 0.2s;
+      transition: border 0.15s;
     }
-    select {
-      cursor: pointer;
-    }
-    input:focus, textarea:focus, select:focus {
+    input:focus, textarea:focus {
       outline: none;
-      border-color: #6C8CFF;
-      box-shadow: 0 0 0 3px rgba(108,140,255,0.2);
+      border-color: var(--accent);
     }
+
     button {
-      background: linear-gradient(95deg, #2b3b6e, #1f2c4f);
+      background: #1e1e1e;
       border: none;
-      padding: 0.85rem 1.5rem;
-      border-radius: 2.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 3rem;
       font-weight: 600;
       color: white;
       cursor: pointer;
-      transition: 0.2s;
+      transition: background 0.2s, transform 0.1s;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
       font-size: 0.9rem;
-      white-space: nowrap;
     }
     button:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.05);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+      background: #111;
     }
-    .btn-approve { background: linear-gradient(95deg, #1f6e43, #0f5a38); }
-    .btn-reject { background: linear-gradient(95deg, #9e3c2c, #7a2e21); }
 
-    .articles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-    .article-card {
-      background: #0c1120dd;
-      backdrop-filter: blur(4px);
-      border-radius: 1.5rem;
-      padding: 1.3rem;
-      border: 1px solid rgba(108,140,255,0.2);
-      transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
-    }
-    .article-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #d6e3ff;
-      word-break: break-word;
-    }
-    .article-meta {
+    .btn-approve { background: #1e1e1e; border: 1px solid #2ecc71; color: #2ecc71; }
+    .btn-reject { background: #1e1e1e; border: 1px solid #e74c3c; color: #e74c3c; }
+
+    /* Badges de statut */
+    .status-badge {
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
       font-size: 0.7rem;
-      color: #8f9bb5;
-      margin-bottom: 0.75rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+      background: #f1f3f5;
+      color: #1e1e1e;
     }
-    .article-content {
-      font-size: 0.9rem;
-      line-height: 1.45;
-      color: #cddcff;
-      margin: 0.75rem 0;
-      white-space: pre-wrap;
-      word-break: break-word;
+    .status-pending { background: #f39c12; color: white; }
+    .status-correction { background: #e67e22; color: white; }
+    .status-rejected { background: #c0392b; color: white; }
+    .status-published { background: #27ae60; color: white; }
+
+    .moderator-comment {
+      background: #f8f9fa;
+      border-left: 4px solid var(--accent);
+      padding: 0.6rem 1rem;
+      margin: 1rem 0;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      color: #2c3e50;
     }
-    .hash-badge {
-      background: #03060e;
-      font-family: monospace;
-      font-size: 0.7rem;
-      padding: 0.4rem 0.7rem;
-      border-radius: 12px;
-      word-break: break-all;
-      color: #8fbbff;
-      margin: 10px 0;
-      border: 1px solid #2c3f66;
+
+    /* login card */
+    .login-container {
+      max-width: 480px;
+      margin: 3rem auto;
     }
-    .card-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-top: auto;
-      padding-top: 1rem;
-    }
-    .empty-message {
+    .login-card {
+      background: #fff;
+      border-radius: 1.8rem;
+      padding: 2.2rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #e9ecef;
       text-align: center;
-      padding: 2rem 1rem;
-      color: #7e8bb0;
-      font-style: italic;
     }
+    .login-card h2 {
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    .role-selector {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+    .role-option {
+      background: #f1f3f5;
+      padding: 0.5rem 1.8rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      font-weight: 500;
+    }
+    .role-option.selected {
+      border-color: var(--accent);
+      background: #fff0ee;
+    }
+
+    /* toast */
     .toast-msg {
       position: fixed;
       bottom: 20px;
       right: 20px;
       left: 20px;
-      max-width: 400px;
+      max-width: 420px;
       margin-left: auto;
-      background: #1f2b3f;
-      backdrop-filter: blur(12px);
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      border-left: 4px solid #6C8CFF;
+      background: #1e1e1e;
+      color: white;
+      padding: 0.9rem 1.8rem;
+      border-radius: 60px;
+      border-left: 6px solid var(--accent);
       font-weight: 500;
       z-index: 999;
-      animation: fadeInUp 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-      word-break: break-word;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-
-    /* Pièces jointes */
-    .attachment-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.8rem;
-    }
-    .attachment-item {
-      background: #1a2440;
-      border-radius: 20px;
-      padding: 0.4rem 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      border: 1px solid #3b4b70;
-      max-width: 100%;
-    }
-    .attachment-item img {
-      width: 28px;
-      height: 28px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    /* Modal d'authentification modérateur */
-    .auth-modal {
-      background: #0f1625f0;
-      backdrop-filter: blur(10px);
-      border-radius: 2rem;
-      padding: 1.8rem;
-      max-width: 400px;
-      margin: 1rem auto;
-      text-align: center;
-      border: 1px solid #6C8CFF60;
-    }
-
-    /* Statuts */
-    .status-badge {
-      display: inline-block;
-      padding: 0.25rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      margin-left: 0.5rem;
-      white-space: nowrap;
-    }
-    .status-pending { background: #9e7e2c; color: #111; }
-    .status-correction { background: #b95f1a; color: white; }
-    .status-rejected { background: #b02c2c; color: white; }
-    .status-published { background: #1f6e43; color: white; }
-
-    .moderator-comment {
-      background: #1a223a;
-      border-left: 3px solid #6C8CFF;
-      padding: 0.5rem 0.8rem;
-      margin: 0.8rem 0;
-      font-size: 0.8rem;
-      border-radius: 8px;
-      color: #bdd0ff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      animation: fadeInUp 0.3s;
     }
 
     footer {
       text-align: center;
-      margin-top: 2rem;
-      font-size: 0.7rem;
-      color: #4e6188;
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: #6c757d;
     }
 
-    /* --- RESPONSIVE IMPROVEMENTS --- */
-    @media (max-width: 700px) {
-      body { padding: 1rem 0.8rem; }
-      .dashboard { padding: 1.2rem 1rem; }
-      .role-btn { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
-    }
-
-    @media (max-width: 550px) {
-      .role-tabs {
-        gap: 0.5rem;
-      }
-      .role-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-      }
-      .role-btn i {
-        font-size: 1rem;
-      }
-      .articles-grid {
-        grid-template-columns: 1fr; /* une seule colonne */
-      }
-      .card-actions {
+    /* responsive */
+    @media (max-width: 750px) {
+      body { padding: 0 1rem 1.5rem; }
+      .navbar {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
       }
-      .card-actions button {
+      .nav-links {
+        gap: 1.2rem;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .nav-auth {
+        margin-left: 0;
         width: 100%;
       }
-      .form-card {
-        padding: 1rem;
-      }
-      input, textarea, select {
-        padding: 0.75rem 0.8rem;
-        font-size: 16px; /* évite le zoom automatique sur iOS */
-      }
-      .section-title {
-        margin-bottom: 1rem;
-      }
-      .toast-msg {
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
-        padding: 0.6rem 1rem;
-      }
-      .badge-chain {
-        font-size: 0.65rem;
-      }
+      .dashboard { padding: 1.5rem 1rem; }
+    }
+    @media (max-width: 550px) {
+      .articles-grid { grid-template-columns: 1fr; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Très petits écrans (ex: iPhone SE) */
-    @media (max-width: 380px) {
-      .brand h1 {
-        font-size: 1.6rem;
-      }
-      .role-btn span {
-        display: none; /* on garde seulement l'icône */
-      }
-      .role-btn i {
-        margin: 0;
-      }
-      .role-btn {
-        padding: 0.5rem;
-        border-radius: 50px;
-      }
+    /* utilitaires */
+    .empty-message {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+      font-style: italic;
     }
-
-    /* Évite le débordement des longs mots */
-    .hash-badge, .article-content, .article-title {
-      overflow-wrap: break-word;
+    .attachment-item {
+      display: inline-flex;
+      align-items: center;
+      background: #f1f3f5;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      margin: 0.3rem;
+      font-size: 0.8rem;
+      gap: 0.5rem;
     }
   </style>
 </head>
 <body>
 <div class="app-container">
-  <div class="brand">
-    <h1><i class="fas fa-link"></i> BlockJournal</h1>
-    <p>Journalisme citoyen · Intégrité immuable par Smart Contract simulé</p>
-    <div class="badge-chain"><i class="fas fa-cube"></i> Ancrage blockchain | Hash SHA-256 | État inaltérable</div>
-  </div>
+  <!-- ---------- NOUVELLE BARRE DE NAVIGATION ---------- -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="#"><i class="fas fa-landmark" style="color: var(--accent);"></i> L'<span>Institution</span></a>
+      <p>Saint‑Denis · Journalisme ancré blockchain</p>
+      <div class="badge-chain" style="margin-top: 6px;"><i class="fas fa-cube"></i> SHA‑256 · Intégrité inaltérable</div>
+    </div>
+    <div class="nav-links">
+      <a href="#" class="active">Accueil</a>
+      <a href="#">Articles</a>
+      <a href="#">À propos</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-auth" id="authArea">
+      <!-- Bouton connexion ou info session (géré dynamiquement) -->
+    </div>
+  </nav>
 
-  <!-- Sélecteur d'espaces (3 rôles) -->
-  <div class="role-tabs">
-    <div class="role-btn" data-role="journalist" id="tabJournalist"><i class="fas fa-pen-fancy"></i> <span>Espace Journaliste</span></div>
-    <div class="role-btn" data-role="moderator" id="tabModerator"><i class="fas fa-gavel"></i> <span>Espace Modérateur</span></div>
-    <div class="role-btn" data-role="reader" id="tabReader"><i class="fas fa-newspaper"></i> <span>Espace Lecteur</span></div>
-  </div>
-
+  <!-- Contenu principal (inchangé dans le JS) -->
   <div class="dashboard" id="mainDashboard">
-    <!-- contenu dynamique injecté ici -->
+    <!-- contenu dynamique -->
   </div>
+
   <footer>
-    <i class="fas fa-lock"></i> Simulation d'ancrage Smart Contract — chaque approbation génère un hash cryptographique (SHA-256) garantissant l'intégrité du contenu et des pièces jointes.
+    <i class="fas fa-lock"></i> Simulation d'ancrage Smart Contract — chaque approbation génère un hash cryptographique garantissant l'intégrité.
   </footer>
 </div>
 
@@ -424,26 +455,26 @@
   (function(){
     "use strict";
 
-    // ---------- DATA MODEL (avec commentaires et statuts étendus) ----------
-    let pendingSubmissions = [];      // statuts possibles: 'pending', 'correction_requested'
+    // ---------- DATA MODEL (inchangé) ----------
+    let pendingSubmissions = [];
     let publishedArticles = [];
-    let rejectedArticles = [];        // garder trace des rejetés pour l'historique
+    let rejectedArticles = [];
 
     let nextPendingId = 1;
     let nextPublishedId = 1;
     let nextRejectedId = 1;
 
-    // --- Comptes journalistes simulés ---
+    // Comptes journalistes (avec mot de passe simple)
     const JOURNALIST_ACCOUNTS = [
-      { id: 'laura', name: 'Laura Dubois', email: 'laura@citoyen.fr' },
-      { id: 'marc', name: 'Marc Verne', email: 'marc@citoyen.fr' },
-      { id: 'leila', name: 'Leila Chen', email: 'leila@citoyen.fr' }
+      { id: 'laura', name: 'Laura Dubois', email: 'laura@citoyen.fr', password: 'journalist' },
+      { id: 'marc', name: 'Marc Verne', email: 'marc@citoyen.fr', password: 'journalist' },
+      { id: 'leila', name: 'Leila Chen', email: 'leila@citoyen.fr', password: 'journalist' }
     ];
-    let currentJournalistId = 'laura'; // par défaut
+    const MODERATOR_ACCOUNT = { id: 'moderator', name: 'Modérateur', password: 'mod123' };
 
-    // --- Sécurité modérateur ---
-    const MODERATOR_PASSWORD = "mod123";
-    let isModeratorAuthenticated = false;
+    // État de session
+    let isLoggedIn = false;
+    let currentUser = null; // { role: 'journalist'|'moderator', id, name }
 
     // Helper toast
     function showToast(message, isError = false) {
@@ -454,7 +485,7 @@
       setTimeout(() => toast.remove(), 4000);
     }
 
-    // ---------- FONCTIONS CRYPTO ----------
+    // ---------- CRYPTO (identique) ----------
     async function generateIntegrityHash(article) {
       let attachmentsString = '';
       if (article.attachments && article.attachments.length) {
@@ -464,11 +495,10 @@
       const encoder = new TextEncoder();
       const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(dataString));
       const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      return `0x${hexHash}`;
+      return '0x' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // ---------- APPROBATION / REJET / CORRECTION ----------
+    // ---------- Approbation / rejet ----------
     async function approveSubmission(pendingId) {
       const pendingIndex = pendingSubmissions.findIndex(p => p.id === pendingId);
       if (pendingIndex === -1) return false;
@@ -481,7 +511,7 @@
         author: pending.author,
         authorId: pending.authorId,
         submissionTimestamp: pending.submissionTimestamp,
-        approvalTimestamp: approvalTimestamp,
+        approvalTimestamp,
         attachments: pending.attachments ? [...pending.attachments] : [],
         hash: null,
         isImmutable: true
@@ -489,9 +519,8 @@
       newPublished.hash = await generateIntegrityHash(newPublished);
       publishedArticles.unshift(newPublished);
       pendingSubmissions.splice(pendingIndex, 1);
-      showToast(` Article approuvé ! Hash : ${newPublished.hash.slice(0, 18)}...`);
-      notifyJournalist(pending.authorId, `Votre article "${pending.title}" a été publié.`);
-      renderCurrentRole();
+      showToast(`✅ Article approuvé ! Hash : ${newPublished.hash.slice(0, 18)}...`);
+      renderView();
       return true;
     }
 
@@ -500,9 +529,8 @@
       if (!pending) return;
       pending.status = 'correction_requested';
       pending.moderatorComment = comment || "Des modifications sont nécessaires.";
-      showToast(`↩️ Correction demandée pour "${pending.title}"`);
-      notifyJournalist(pending.authorId, `Modifications demandées sur votre article "${pending.title}". Commentaire : ${pending.moderatorComment}`);
-      renderCurrentRole();
+      showToast(`↩️ Correction demandée`);
+      renderView();
     }
 
     function rejectSubmission(pendingId, comment) {
@@ -510,35 +538,23 @@
       if (pendingIndex === -1) return;
       const rejected = { ...pendingSubmissions[pendingIndex], id: nextRejectedId++, status: 'rejected', rejectionComment: comment || "Article non conforme." };
       rejectedArticles.unshift(rejected);
-      const title = rejected.title;
-      const authorId = rejected.authorId;
       pendingSubmissions.splice(pendingIndex, 1);
-      showToast(` Article rejeté : ${title}`);
-      notifyJournalist(authorId, `Votre article "${title}" a été rejeté. Commentaire : ${rejected.rejectionComment}`);
-      renderCurrentRole();
+      showToast(`❌ Article rejeté`);
+      renderView();
     }
 
-    function notifyJournalist(authorId, message) {
-      if (currentRole === 'journalist' && currentJournalistId === authorId) {
-        showToast(` Notification : ${message}`);
-      }
-    }
-
-    // Soumission / correction par le journaliste
+    // Soumission / correction
     function submitArticle(title, content, authorName, attachments, isCorrection = false, existingId = null) {
       if (!title.trim() || !content.trim()) {
-        showToast("Le titre et le contenu sont obligatoires", true);
+        showToast("Titre et contenu obligatoires", true);
         return false;
       }
-      const authorId = currentJournalistId;
-      const authorDisplay = authorName.trim() || JOURNALIST_ACCOUNTS.find(a => a.id === authorId)?.name || "Citoyen·ne";
+      const authorId = currentUser.id;
+      const authorDisplay = authorName.trim() || currentUser.name;
 
       if (isCorrection && existingId) {
         const pendingIndex = pendingSubmissions.findIndex(p => p.id === existingId);
-        if (pendingIndex === -1) {
-          showToast("Article introuvable", true);
-          return false;
-        }
+        if (pendingIndex === -1) return false;
         const pending = pendingSubmissions[pendingIndex];
         pending.title = title.trim();
         pending.content = content.trim();
@@ -546,8 +562,8 @@
         pending.status = 'pending';
         pending.submissionTimestamp = new Date().toISOString();
         pending.moderatorComment = null;
-        showToast("📤 Article corrigé renvoyé en modération.");
-        renderCurrentRole();
+        showToast("📤 Article corrigé renvoyé.");
+        renderView();
         return true;
       } else {
         const newPending = {
@@ -562,8 +578,8 @@
           moderatorComment: null
         };
         pendingSubmissions.unshift(newPending);
-        showToast("📝 Article soumis. En attente de modération.");
-        renderCurrentRole();
+        showToast("📝 Article soumis en modération.");
+        renderView();
         return true;
       }
     }
@@ -571,77 +587,99 @@
     async function verifyIntegrity(articleId) {
       const article = publishedArticles.find(a => a.id === articleId);
       if (!article) return;
-      const recomputedHash = await generateIntegrityHash(article);
-      if (recomputedHash === article.hash) {
-        showToast(` VÉRIFICATION RÉUSSIE : l'article et ses médias sont intacts.`);
-      } else {
-        showToast(` ALERTE : Intégrité compromise !`, true);
-      }
+      const recomputed = await generateIntegrityHash(article);
+      if (recomputed === article.hash) showToast(`🔒 Intégrité confirmée`);
+      else showToast(`⚠️ Alerte : Intégrité compromise !`, true);
     }
 
-    // ---------- RENDU DYNAMIQUE ----------
-    let currentRole = "journalist";
-
-    function renderCurrentRole() {
+    // ---------- RENDU DYNAMIQUE SELON SESSION ----------
+    function renderView() {
+      updateAuthButton();
       const dashboard = document.getElementById("mainDashboard");
-      if (!dashboard) return;
-      if (currentRole === "journalist") {
+      if (!isLoggedIn) {
+        dashboard.innerHTML = renderPublicHome();
+      } else if (currentUser.role === 'journalist') {
         dashboard.innerHTML = renderJournalistSpace();
-      } else if (currentRole === "moderator") {
-        if (!isModeratorAuthenticated) {
-          dashboard.innerHTML = renderModeratorAuthScreen();
-        } else {
-          dashboard.innerHTML = renderModeratorSpace();
-        }
-      } else if (currentRole === "reader") {
-        dashboard.innerHTML = renderReaderSpace();
+      } else if (currentUser.role === 'moderator') {
+        dashboard.innerHTML = renderModeratorSpace();
       }
-      attachRoleSpecificEvents();
+      attachEvents();
     }
 
+    function updateAuthButton() {
+      const area = document.getElementById("authArea");
+      if (!isLoggedIn) {
+        area.innerHTML = `<button class="btn-outline-accent" id="showLoginBtn"><i class="fas fa-sign-in-alt"></i> Espace journaliste / modérateur</button>`;
+      } else {
+        area.innerHTML = `
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span style="font-weight:500;"><i class="fas fa-user-check" style="color:var(--accent);"></i> ${currentUser.name} (${currentUser.role === 'journalist' ? 'Journaliste' : 'Modérateur'})</span>
+            <button class="btn-outline-accent" id="logoutBtn" style="padding:0.3rem 1.2rem;"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+          </div>
+        `;
+      }
+    }
+
+    // ----- VUE PUBLIQUE (accueil) -----
+    function renderPublicHome() {
+      if (publishedArticles.length === 0) {
+        return `<div class="section-title"><i class="fas fa-newspaper"></i> Derniers articles de Saint‑Denis</div>
+                <div class="empty-message">Aucun article publié pour le moment.</div>`;
+      }
+      let html = `<div class="section-title"><i class="fas fa-newspaper"></i> À la une · Saint‑Denis</div><div class="articles-grid">`;
+      publishedArticles.forEach(article => {
+        html += `
+          <div class="article-card">
+            <div class="article-title">${escapeHtml(article.title)}</div>
+            <div class="article-meta"><span><i class="fas fa-user-pen"></i> ${escapeHtml(article.author)}</span><span>${new Date(article.approvalTimestamp).toLocaleDateString()}</span></div>
+            <div class="article-content">${escapeHtml(article.content)}</div>
+            <div class="hash-badge"><i class="fas fa-fingerprint"></i> ${article.hash}</div>
+            <button class="verify-btn public-verify" data-id="${article.id}"><i class="fas fa-shield"></i> Vérifier l'intégrité</button>
+          </div>
+        `;
+      });
+      html += `</div>`;
+      return html;
+    }
+
+    // ----- ESPACE JOURNALISTE (après connexion) -----
     function renderJournalistSpace() {
-      const currentJournalist = JOURNALIST_ACCOUNTS.find(a => a.id === currentJournalistId);
-      const userArticles = pendingSubmissions.filter(p => p.authorId === currentJournalistId);
-      const userRejected = rejectedArticles.filter(r => r.authorId === currentJournalistId);
-      const userPublished = publishedArticles.filter(p => p.authorId === currentJournalistId);
+      const userArticles = pendingSubmissions.filter(p => p.authorId === currentUser.id);
+      const userRejected = rejectedArticles.filter(r => r.authorId === currentUser.id);
+      const userPublished = publishedArticles.filter(p => p.authorId === currentUser.id);
 
       let myArticlesHtml = '';
       if (userArticles.length === 0 && userRejected.length === 0 && userPublished.length === 0) {
-        myArticlesHtml = `<div class="empty-message"><i class="fas fa-inbox"></i> Aucune soumission pour le moment.</div>`;
+        myArticlesHtml = `<div class="empty-message"><i class="fas fa-inbox"></i> Aucune soumission.</div>`;
       } else {
-        myArticlesHtml = `<div style="margin-top:2rem;"><h3 style="margin-bottom:1rem;"><i class="fas fa-history"></i> Mes articles</h3><div class="articles-grid">`;
-
+        myArticlesHtml = `<div style="margin-top:2rem;"><h3><i class="fas fa-history"></i> Mes articles</h3><div class="articles-grid">`;
         userArticles.forEach(art => {
           const statusLabel = art.status === 'pending' ? 'En attente' : 'Corrections demandées';
           const statusClass = art.status === 'pending' ? 'status-pending' : 'status-correction';
-          let commentHtml = art.moderatorComment ? `<div class="moderator-comment"><i class="fas fa-comment-dots"></i> Modérateur : ${escapeHtml(art.moderatorComment)}</div>` : '';
+          let commentHtml = art.moderatorComment ? `<div class="moderator-comment">📝 ${escapeHtml(art.moderatorComment)}</div>` : '';
           myArticlesHtml += `
             <div class="article-card">
               <div class="article-title">${escapeHtml(art.title)} <span class="status-badge ${statusClass}">${statusLabel}</span></div>
-              <div class="article-meta"><i class="fas fa-calendar"></i> Soumis le ${new Date(art.submissionTimestamp).toLocaleString()}</div>
+              <div class="article-meta">Soumis le ${new Date(art.submissionTimestamp).toLocaleString()}</div>
               <div class="article-content">${escapeHtml(art.content)}</div>
               ${commentHtml}
-              ${art.status === 'correction_requested' ? `<button class="edit-correction-btn" data-id="${art.id}"><i class="fas fa-pen"></i> Modifier et renvoyer</button>` : ''}
+              ${art.status === 'correction_requested' ? `<button class="edit-correction-btn" data-id="${art.id}"><i class="fas fa-pen"></i> Modifier</button>` : ''}
             </div>
           `;
         });
-
         userRejected.forEach(art => {
           myArticlesHtml += `
             <div class="article-card">
               <div class="article-title">${escapeHtml(art.title)} <span class="status-badge status-rejected">Rejeté</span></div>
-              <div class="article-meta"><i class="fas fa-calendar"></i> Soumis le ${new Date(art.submissionTimestamp).toLocaleString()}</div>
-              <div class="moderator-comment"><i class="fas fa-ban"></i> Raison : ${escapeHtml(art.rejectionComment || 'Non spécifiée')}</div>
+              <div class="moderator-comment">❌ ${escapeHtml(art.rejectionComment || 'Non spécifiée')}</div>
             </div>
           `;
         });
-
         userPublished.forEach(art => {
           myArticlesHtml += `
             <div class="article-card">
               <div class="article-title">${escapeHtml(art.title)} <span class="status-badge status-published">Publié</span></div>
-              <div class="article-meta"><i class="fas fa-check-circle"></i> Approuvé le ${new Date(art.approvalTimestamp).toLocaleString()}</div>
-              <div class="hash-badge"><i class="fas fa-fingerprint"></i> Hash : ${art.hash}</div>
+              <div class="hash-badge">${art.hash}</div>
             </div>
           `;
         });
@@ -649,86 +687,38 @@
       }
 
       return `
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
-          <div class="section-title"><i class="fas fa-user-edit"></i> Espace Journaliste</div>
-          <div style="display:flex; align-items:center; gap:0.8rem;">
-            <label style="color:#b9c7ff;"><i class="fas fa-user"></i> Compte :</label>
-            <select id="journalistSelect" style="width:auto; padding:0.5rem 1rem;">
-              ${JOURNALIST_ACCOUNTS.map(acc => `<option value="${acc.id}" ${acc.id === currentJournalistId ? 'selected' : ''}>${acc.name}</option>`).join('')}
-            </select>
-          </div>
-        </div>
+        <div class="section-title"><i class="fas fa-user-edit"></i> Espace Journaliste · ${currentUser.name}</div>
         <div class="form-card">
-          <div class="input-group">
-            <label><i class="fas fa-heading"></i> Titre *</label>
-            <input type="text" id="articleTitle" placeholder="Ex: Découverte environnementale..." />
-          </div>
-          <div class="input-group">
-            <label><i class="fas fa-user"></i> Signature</label>
-            <input type="text" id="articleAuthor" placeholder="${currentJournalist.name}" value="${currentJournalist.name}" />
-          </div>
-          <div class="input-group">
-            <label><i class="fas fa-file-alt"></i> Contenu *</label>
-            <textarea rows="5" id="articleContent" placeholder="Rédigez votre enquête citoyenne..."></textarea>
-          </div>
-          <div class="input-group">
-            <label><i class="fas fa-paperclip"></i> Pièces jointes</label>
-            <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" multiple style="padding:0.5rem;" />
+          <div class="input-group"><label>Titre *</label><input type="text" id="articleTitle" placeholder="Votre titre" /></div>
+          <div class="input-group"><label>Signature</label><input type="text" id="articleAuthor" placeholder="${currentUser.name}" value="${currentUser.name}" /></div>
+          <div class="input-group"><label>Contenu *</label><textarea rows="5" id="articleContent" placeholder="Rédigez votre enquête..."></textarea></div>
+          <div class="input-group"><label>Pièces jointes</label><input type="file" id="fileInput" accept="image/*,.pdf" multiple />
             <div id="attachmentPreview" class="attachment-list"></div>
-            <small style="color:#9aabcf;">Les fichiers seront inclus dans le hash d'ancrage.</small>
           </div>
-          <button id="submitArticleBtn"><i class="fas fa-paper-plane"></i> Soumettre à la modération</button>
+          <button id="submitArticleBtn"><i class="fas fa-paper-plane"></i> Soumettre</button>
           <input type="hidden" id="editingId" value="" />
         </div>
         ${myArticlesHtml}
       `;
     }
 
-    function renderModeratorAuthScreen() {
-      return `
-        <div class="auth-modal">
-          <h3><i class="fas fa-shield-alt"></i> Accès modérateur</h3>
-          <p>Mot de passe (démo : "mod123")</p>
-          <input type="password" id="modPasswordInput" placeholder="Mot de passe" />
-          <div style="display:flex; gap:1rem; justify-content:center; margin-top:1.5rem; flex-wrap:wrap;">
-            <button id="authModeratorBtn"><i class="fas fa-key"></i> Connexion</button>
-            <button id="cancelAuthBtn" class="btn-logout"><i class="fas fa-times"></i> Annuler</button>
-          </div>
-        </div>
-      `;
-    }
-
+    // ----- ESPACE MODÉRATEUR -----
     function renderModeratorSpace() {
       if (pendingSubmissions.length === 0) {
-        return `
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
-            <div class="section-title"><i class="fas fa-clock"></i> File de modération</div>
-            <button id="moderatorLogoutBtn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
-          </div>
-          <div class="empty-message"><i class="fas fa-inbox fa-2x"></i><p>Aucune soumission en attente.</p></div>
-        `;
+        return `<div class="section-title"><i class="fas fa-tasks"></i> File de modération</div><div class="empty-message">Aucune soumission en attente.</div>`;
       }
-      let html = `
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-          <div class="section-title"><i class="fas fa-tasks"></i> Articles en attente (${pendingSubmissions.length})</div>
-          <button id="moderatorLogoutBtn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
-        </div>
-        <div class="articles-grid">
-      `;
+      let html = `<div class="section-title"><i class="fas fa-tasks"></i> Articles en attente (${pendingSubmissions.length})</div><div class="articles-grid">`;
       pendingSubmissions.forEach(pending => {
         const commentInputId = `comment-${pending.id}`;
         html += `
-          <div class="article-card" data-pending-id="${pending.id}">
-            <div class="article-title">${escapeHtml(pending.title)} <span class="status-badge ${pending.status === 'pending' ? 'status-pending' : 'status-correction'}">${pending.status === 'pending' ? 'En attente' : 'Correction en cours'}</span></div>
-            <div class="article-meta"><span><i class="fas fa-user"></i> ${escapeHtml(pending.author)}</span> <span>${new Date(pending.submissionTimestamp).toLocaleString()}</span></div>
+          <div class="article-card">
+            <div class="article-title">${escapeHtml(pending.title)} <span class="status-badge ${pending.status==='pending'?'status-pending':'status-correction'}">${pending.status==='pending'?'En attente':'Correction'}</span></div>
+            <div class="article-meta">${escapeHtml(pending.author)} · ${new Date(pending.submissionTimestamp).toLocaleString()}</div>
             <div class="article-content">${escapeHtml(pending.content)}</div>
-            <div class="input-group" style="margin-top:0.8rem;">
-              <label><i class="fas fa-comment"></i> Commentaire</label>
-              <textarea id="${commentInputId}" rows="2" placeholder="Ex: Source à vérifier..."></textarea>
-            </div>
-            <div class="card-actions">
+            <textarea id="${commentInputId}" rows="2" placeholder="Commentaire (optionnel)"></textarea>
+            <div class="card-actions" style="margin-top:0.8rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
               <button class="approve-btn" data-id="${pending.id}"><i class="fas fa-check-circle"></i> Approuver</button>
-              <button class="correction-btn" data-id="${pending.id}" data-comment-id="${commentInputId}"><i class="fas fa-undo-alt"></i> Demander correction</button>
+              <button class="correction-btn" data-id="${pending.id}" data-comment-id="${commentInputId}"><i class="fas fa-undo-alt"></i> Correction</button>
               <button class="reject-btn" data-id="${pending.id}" data-comment-id="${commentInputId}"><i class="fas fa-times-circle"></i> Rejeter</button>
             </div>
           </div>
@@ -738,44 +728,77 @@
       return html;
     }
 
-    function renderReaderSpace() {
-      if (publishedArticles.length === 0) {
-        return `<div class="section-title"><i class="fas fa-newspaper"></i> Articles publiés</div><div class="empty-message">Aucun article pour le moment.</div>`;
-      }
-      let html = `<div class="section-title"><i class="fas fa-shield-alt"></i> Archives inaltérables</div><div class="articles-grid">`;
-      publishedArticles.forEach(article => {
-        html += `
-          <div class="article-card">
-            <div class="article-title">${escapeHtml(article.title)}</div>
-            <div class="article-meta"><span><i class="fas fa-user-pen"></i> ${escapeHtml(article.author)}</span><span>Approuvé: ${new Date(article.approvalTimestamp).toLocaleString()}</span></div>
-            <div class="article-content">${escapeHtml(article.content)}</div>
-            <div class="hash-badge">Hash : ${article.hash}</div>
-            <button class="verify-btn" data-id="${article.id}"><i class="fas fa-vote-yea"></i> Vérifier intégrité</button>
+    // ----- PAGE DE CONNEXION (affichée à la place du dashboard quand demandé) -----
+    function showLoginScreen() {
+      const dashboard = document.getElementById("mainDashboard");
+      dashboard.innerHTML = `
+        <div class="login-container">
+          <div class="login-card">
+            <h2><i class="fas fa-lock"></i> Connexion</h2>
+            <div class="role-selector">
+              <div class="role-option selected" data-role="journalist">Journaliste</div>
+              <div class="role-option" data-role="moderator">Modérateur</div>
+            </div>
+            <div class="input-group"><input type="text" id="loginId" placeholder="Identifiant" /></div>
+            <div class="input-group"><input type="password" id="loginPassword" placeholder="Mot de passe" /></div>
+            <button id="performLoginBtn" class="btn-accent"><i class="fas fa-arrow-right"></i> Se connecter</button>
+            <button id="cancelLoginBtn" style="background:transparent; margin-top:1rem; color:#2c3e50;">Retour à l'accueil</button>
+            <p style="margin-top:1.5rem; font-size:0.8rem; opacity:0.7;">Démo : journalistes (laura, marc, leila) / mdp "journalist"<br>Modérateur : "moderator" / "mod123"</p>
           </div>
-        `;
+        </div>
+      `;
+      const roles = document.querySelectorAll('.role-option');
+      roles.forEach(r => r.addEventListener('click', () => {
+        roles.forEach(rr => rr.classList.remove('selected'));
+        r.classList.add('selected');
+      }));
+      document.getElementById('performLoginBtn').addEventListener('click', performLogin);
+      document.getElementById('cancelLoginBtn').addEventListener('click', () => {
+        if (isLoggedIn) renderView(); else renderView();
       });
-      html += `</div>`;
-      return html;
     }
 
-    function escapeHtml(str) { return str ? str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]) : ''; }
+    function performLogin() {
+      const id = document.getElementById('loginId')?.value.trim();
+      const pwd = document.getElementById('loginPassword')?.value;
+      const selectedRole = document.querySelector('.role-option.selected')?.dataset.role;
+      if (!id || !pwd) { showToast("Identifiant et mot de passe requis", true); return; }
 
+      if (selectedRole === 'journalist') {
+        const journalist = JOURNALIST_ACCOUNTS.find(j => j.id === id && j.password === pwd);
+        if (journalist) {
+          isLoggedIn = true;
+          currentUser = { role: 'journalist', id: journalist.id, name: journalist.name };
+          showToast(`Bienvenue ${journalist.name}`);
+          renderView();
+        } else showToast("Identifiants incorrects", true);
+      } else if (selectedRole === 'moderator') {
+        if (id === MODERATOR_ACCOUNT.id && pwd === MODERATOR_ACCOUNT.password) {
+          isLoggedIn = true;
+          currentUser = { role: 'moderator', id: 'moderator', name: 'Modérateur' };
+          showToast("Accès modérateur autorisé");
+          renderView();
+        } else showToast("Accès refusé", true);
+      }
+    }
+
+    function logout() {
+      isLoggedIn = false;
+      currentUser = null;
+      showToast("Déconnecté");
+      renderView();
+    }
+
+    // ----- GESTION DES ÉVÉNEMENTS DYNAMIQUES -----
     let tempAttachments = [];
+    function attachEvents() {
+      document.getElementById('showLoginBtn')?.addEventListener('click', showLoginScreen);
+      document.getElementById('logoutBtn')?.addEventListener('click', logout);
 
-    function attachRoleSpecificEvents() {
-      if (currentRole === "journalist") {
-        const select = document.getElementById('journalistSelect');
-        if (select) {
-          select.addEventListener('change', (e) => {
-            currentJournalistId = e.target.value;
-            renderCurrentRole();
-          });
-        }
-
+      if (isLoggedIn && currentUser.role === 'journalist') {
         const fileInput = document.getElementById('fileInput');
         const previewDiv = document.getElementById('attachmentPreview');
         tempAttachments = [];
-        if (previewDiv) previewDiv.innerHTML = '';
         if (fileInput) {
           fileInput.addEventListener('change', async (e) => {
             const files = Array.from(e.target.files);
@@ -786,106 +809,67 @@
               tempAttachments.push({ name: file.name, type: file.type, dataUrl });
               const item = document.createElement('span');
               item.className = 'attachment-item';
-              if (file.type.startsWith('image/')) {
-                item.innerHTML = `<img src="${dataUrl}" /> ${escapeHtml(file.name)} <i class="fas fa-times remove-attach" data-name="${file.name}"></i>`;
-              } else {
-                item.innerHTML = `<i class="fas fa-file"></i> ${escapeHtml(file.name)} <i class="fas fa-times remove-attach" data-name="${file.name}"></i>`;
-              }
+              item.innerHTML = `${file.type.startsWith('image/') ? `<img src="${dataUrl}" style="width:28px;height:28px;border-radius:6px;"/>` : '<i class="fas fa-file"></i>'} ${escapeHtml(file.name)} <i class="fas fa-times remove-attach" data-name="${file.name}"></i>`;
               previewDiv.appendChild(item);
             }
             document.querySelectorAll('.remove-attach').forEach(btn => {
-              btn.addEventListener('click', (e) => {
-                const name = btn.dataset.name;
-                tempAttachments = tempAttachments.filter(att => att.name !== name);
+              btn.addEventListener('click', () => {
+                tempAttachments = tempAttachments.filter(att => att.name !== btn.dataset.name);
                 renderAttachmentsPreview(tempAttachments, previewDiv);
               });
             });
           });
         }
-
-        const submitBtn = document.getElementById("submitArticleBtn");
-        if (submitBtn) {
-          submitBtn.addEventListener("click", () => {
-            const title = document.getElementById("articleTitle")?.value || "";
-            const content = document.getElementById("articleContent")?.value || "";
-            const authorInput = document.getElementById("articleAuthor")?.value || "";
-            const editingId = document.getElementById("editingId")?.value;
-            const isCorrection = !!editingId;
-            submitArticle(title, content, authorInput, [...tempAttachments], isCorrection, parseInt(editingId) || null);
-            document.getElementById("articleTitle").value = "";
-            document.getElementById("articleContent").value = "";
-            document.getElementById("editingId").value = "";
-            if (fileInput) fileInput.value = "";
-            tempAttachments = [];
-            if (previewDiv) previewDiv.innerHTML = "";
-          });
-        }
-
+        document.getElementById('submitArticleBtn')?.addEventListener('click', () => {
+          const title = document.getElementById('articleTitle')?.value;
+          const content = document.getElementById('articleContent')?.value;
+          const author = document.getElementById('articleAuthor')?.value;
+          const editingId = document.getElementById('editingId')?.value;
+          submitArticle(title, content, author, tempAttachments, !!editingId, editingId ? parseInt(editingId) : null);
+          document.getElementById('articleTitle').value = '';
+          document.getElementById('articleContent').value = '';
+          document.getElementById('editingId').value = '';
+          if (fileInput) fileInput.value = '';
+          tempAttachments = [];
+          previewDiv.innerHTML = '';
+        });
         document.querySelectorAll('.edit-correction-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
+          btn.addEventListener('click', () => {
             const id = parseInt(btn.dataset.id);
             const pending = pendingSubmissions.find(p => p.id === id);
             if (pending) {
-              document.getElementById("articleTitle").value = pending.title;
-              document.getElementById("articleContent").value = pending.content;
-              document.getElementById("articleAuthor").value = pending.author;
-              document.getElementById("editingId").value = id;
-              tempAttachments = pending.attachments ? [...pending.attachments] : [];
+              document.getElementById('articleTitle').value = pending.title;
+              document.getElementById('articleContent').value = pending.content;
+              document.getElementById('articleAuthor').value = pending.author;
+              document.getElementById('editingId').value = id;
+              tempAttachments = pending.attachments || [];
               renderAttachmentsPreview(tempAttachments, document.getElementById('attachmentPreview'));
-              showToast("Vous pouvez modifier l'article et le renvoyer.");
             }
           });
         });
       }
-      else if (currentRole === "moderator") {
-        if (!isModeratorAuthenticated) {
-          document.getElementById("authModeratorBtn")?.addEventListener("click", () => {
-            const pwd = document.getElementById("modPasswordInput")?.value;
-            if (pwd === MODERATOR_PASSWORD) {
-              isModeratorAuthenticated = true;
-              showToast("Accès modérateur autorisé.");
-              renderCurrentRole();
-            } else showToast("Mot de passe incorrect.", true);
-          });
-          document.getElementById("cancelAuthBtn")?.addEventListener("click", () => setRole("journalist"));
-        } else {
-          document.querySelectorAll(".approve-btn").forEach(btn => {
-            btn.addEventListener("click", async (e) => {
-              const id = parseInt(btn.dataset.id);
-              await approveSubmission(id);
-            });
-          });
-          document.querySelectorAll(".correction-btn").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-              const id = parseInt(btn.dataset.id);
-              const commentId = btn.dataset.commentId;
-              const comment = document.getElementById(commentId)?.value || "";
-              requestCorrection(id, comment);
-            });
-          });
-          document.querySelectorAll(".reject-btn").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-              const id = parseInt(btn.dataset.id);
-              const commentId = btn.dataset.commentId;
-              const comment = document.getElementById(commentId)?.value || "";
-              rejectSubmission(id, comment);
-            });
-          });
-          document.getElementById("moderatorLogoutBtn")?.addEventListener("click", () => {
-            isModeratorAuthenticated = false;
-            showToast("Déconnecté.");
-            renderCurrentRole();
-          });
-        }
+
+      if (isLoggedIn && currentUser.role === 'moderator') {
+        document.querySelectorAll('.approve-btn').forEach(btn => btn.addEventListener('click', async (e) => {
+          await approveSubmission(parseInt(btn.dataset.id));
+        }));
+        document.querySelectorAll('.correction-btn').forEach(btn => btn.addEventListener('click', (e) => {
+          const id = parseInt(btn.dataset.id);
+          const comment = document.getElementById(btn.dataset.commentId)?.value || '';
+          requestCorrection(id, comment);
+        }));
+        document.querySelectorAll('.reject-btn').forEach(btn => btn.addEventListener('click', (e) => {
+          const id = parseInt(btn.dataset.id);
+          const comment = document.getElementById(btn.dataset.commentId)?.value || '';
+          rejectSubmission(id, comment);
+        }));
       }
-      else if (currentRole === "reader") {
-        document.querySelectorAll(".verify-btn").forEach(btn => {
-          btn.addEventListener("click", async (e) => {
-            const id = parseInt(btn.dataset.id);
-            await verifyIntegrity(id);
-          });
+
+      document.querySelectorAll('.public-verify').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          await verifyIntegrity(parseInt(btn.dataset.id));
         });
-      }
+      });
     }
 
     function renderAttachmentsPreview(attachments, container) {
@@ -893,17 +877,12 @@
       attachments.forEach(att => {
         const item = document.createElement('span');
         item.className = 'attachment-item';
-        if (att.type?.startsWith('image/')) {
-          item.innerHTML = `<img src="${att.dataUrl}" /> ${escapeHtml(att.name)} <i class="fas fa-times remove-attach" data-name="${att.name}"></i>`;
-        } else {
-          item.innerHTML = `<i class="fas fa-file"></i> ${escapeHtml(att.name)} <i class="fas fa-times remove-attach" data-name="${att.name}"></i>`;
-        }
+        item.innerHTML = `${att.type?.startsWith('image/') ? `<img src="${att.dataUrl}" style="width:28px;height:28px;border-radius:6px;"/>` : '<i class="fas fa-file"></i>'} ${escapeHtml(att.name)} <i class="fas fa-times remove-attach" data-name="${att.name}"></i>`;
         container.appendChild(item);
       });
       document.querySelectorAll('.remove-attach').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const name = btn.dataset.name;
-          tempAttachments = tempAttachments.filter(att => att.name !== name);
+        btn.addEventListener('click', () => {
+          tempAttachments = tempAttachments.filter(att => att.name !== btn.dataset.name);
           renderAttachmentsPreview(tempAttachments, container);
         });
       });
@@ -918,44 +897,34 @@
       });
     }
 
-    function setRole(role) {
-      currentRole = role;
-      document.querySelectorAll(".role-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-role") === role);
-      });
-      renderCurrentRole();
-    }
+    function escapeHtml(str) { return str ? str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]) : ''; }
 
-    // Données de démonstration
+    // ----- DONNÉES DE DÉMO -----
     async function seedInitialData() {
       if (pendingSubmissions.length === 0) {
         pendingSubmissions.push({
-          id: nextPendingId++, title: "Pollution des eaux : analyse", content: "Microplastiques détectés.", author: "Laura Dubois", authorId: "laura",
+          id: nextPendingId++, title: "Pollution des eaux à Saint‑Denis", content: "Des microplastiques détectés dans la Seine.", author: "Laura Dubois", authorId: "laura",
           submissionTimestamp: new Date(Date.now() - 2*3600000).toISOString(), status: "pending", attachments: []
         });
         pendingSubmissions.push({
-          id: nextPendingId++, title: "Budget participatif : projet rejeté", content: "Détails...", author: "Marc Verne", authorId: "marc",
-          submissionTimestamp: new Date(Date.now() - 5*3600000).toISOString(), status: "correction_requested", moderatorComment: "Ajoutez des chiffres vérifiables.", attachments: []
+          id: nextPendingId++, title: "Budget participatif : projet de square rejeté", content: "Les habitants s'interrogent...", author: "Marc Verne", authorId: "marc",
+          submissionTimestamp: new Date(Date.now() - 5*3600000).toISOString(), status: "correction_requested", moderatorComment: "Ajoutez des chiffres.", attachments: []
         });
       }
       if (publishedArticles.length === 0) {
         const demo = {
-          id: nextPublishedId++, title: "Conseil municipal adopte budget", content: "200k€ débloqués.", author: "Leila Chen", authorId: "leila",
+          id: nextPublishedId++, title: "Conseil municipal : 200k€ pour les écoles", content: "Le conseil a voté une enveloppe supplémentaire.", author: "Leila Chen", authorId: "leila",
           submissionTimestamp: new Date(Date.now() - 48*3600000).toISOString(), approvalTimestamp: new Date().toISOString(), attachments: []
         };
         demo.hash = await generateIntegrityHash(demo);
         publishedArticles.push(demo);
       }
-      renderCurrentRole();
+      renderView();
     }
 
-    document.getElementById("tabJournalist")?.addEventListener("click", () => setRole("journalist"));
-    document.getElementById("tabModerator")?.addEventListener("click", () => setRole("moderator"));
-    document.getElementById("tabReader")?.addEventListener("click", () => setRole("reader"));
-
+    // Initialisation
     (async () => {
       await seedInitialData();
-      setRole("journalist");
     })();
   })();
 </script>
